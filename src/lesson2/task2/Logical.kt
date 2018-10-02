@@ -49,7 +49,7 @@ fun queenThreatens(x1: Int, y1: Int, x2: Int, y2: Int): Boolean {
  * Вернуть число дней в этом месяце этого года по григорианскому календарю.
  */
 fun daysInMonth(month: Int, year: Int): Int {
-    if ((month == 2) && (year % 400 == 0) || ((year % 100 != 0) && (year % 4 == 0))) return 29
+    if ((month == 2) && ((year % 400 == 0) || ((year % 100 != 0) && (year % 4 == 0)))) return 29
     if ((month == 2) && (year % 100 == 0) && (year % 400 != 0)) return 28
     if ((month == 2) && (year % 100 != 0) && (year % 4 != 0)) return 28
     if ((month == 4) || (month == 6) || (month == 9) || (month == 11)) return 30
@@ -79,4 +79,7 @@ fun circleInside(x1: Double, y1: Double, r1: Double,
  * кирпич 4 х 4 х 4 пройдёт через отверстие 4 х 4.
  * Вернуть true, если кирпич пройдёт
  */
-fun brickPasses(a: Int, b: Int, c: Int, r: Int, s: Int): Boolean = TODO()
+fun brickPasses(a: Int, b: Int, c: Int, r: Int, s: Int): Boolean {
+    if (( a <= r || b <= r || c <= r) && ( a <= s || b <= s || c <= s))  return true
+    else return false
+}

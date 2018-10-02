@@ -164,10 +164,10 @@ fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int {
     val K = c - b
     if ((K > 0) && (c > b)) return -1
     if ((K < 0) && (a > d)) return -1
-    if ((K < 0) && (a < d) && (a < c) && (b < d)) return b - c
-    if ((K < 0) && (b < d) && (a > c)) return b - a
-    if ((K < 0) && (a < d) && (a > c)) return d - a
-    if ((K < 0) && (a < c) && (d < b)) return d - c
+    if ((K < 0) && (a < d) && (a <= c) && (b <= d)) return b - c
+    if ((K < 0) && (b <= d) && (a >= c)) return b - a
+    if ((K < 0) && (a < d) && (a >= c) && (d <= b)) return d - a
+    if ((K < 0) && (a <= c) && (d <= b)) return d - c
     if (K == 0) return 0
     else return K
 }
