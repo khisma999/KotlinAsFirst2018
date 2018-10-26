@@ -1,4 +1,5 @@
 @file:Suppress("UNUSED_PARAMETER")
+
 package lesson2.task1
 
 import lesson1.task1.discriminant
@@ -73,8 +74,6 @@ fun ageDescription(age: Int): String {
 }
 
 
-
-
 /**
  * Простая
  *
@@ -85,11 +84,14 @@ fun ageDescription(age: Int): String {
 fun timeForHalfWay(t1: Double, v1: Double,
                    t2: Double, v2: Double,
                    t3: Double, v3: Double): Double {
-    var S = (((v1 * t1) + (v2 * t2) + (v3 * t3))/ 2.0)
+    var S = (((v1 * t1) + (v2 * t2) + (v3 * t3)) / 2.0)
     if (S > v1 * t1) S -= v1 * t1
     else return (S / v1)
-    return if (S > v2 * t2) ((S - (v2 * t2))/ v3 + t1 + t2) else ((S / v2) + t1)
+    return when {
+        S > v2 * t2 -> (S - (v2 * t2)) / v3 + t1 + t2
+        else -> (S / v2) + t1
     }
+}
 
 /**
  * Простая
@@ -100,16 +102,15 @@ fun timeForHalfWay(t1: Double, v1: Double,
  * и 3, если угроза от обеих ладей.
  * Считать, что ладьи не могут загораживать друг друга
  */
-fun whichRookThreatens(kingX: Int, kingY: Int,
-                       rookX1: Int, rookY1: Int,
-                       rookX2: Int, rookY2: Int): Int {
-    if ((kingX != rookX1) && (kingY != rookY1) && (kingX != rookX2) && (kingY != rookY2)) return 0
-    if ((kingX == rookX1) && (kingY != rookY1) && (kingX != rookX2) && (kingY != rookY2)) return 1
-    if ((kingX != rookX1) && (kingY == rookY1) && (kingX != rookX2) && (kingY != rookY2)) return 1
-    if ((kingX == rookX2) && (kingY != rookY2) && (kingX != rookX1) && (kingY != rookY1)) return 2
-    return if ((kingX != rookX2) && (kingY == rookY2) && (kingX != rookX1) && (kingY != rookY1)) 2
-    else 3
-
+fun whichRookThreatens(kingX: Int, kingY: Int, rookX1: Int, rookY1: Int, rookX2: Int, rookY2: Int): Int {
+    return when {
+        (kingX != rookX1) && (kingY != rookY1) && (kingX != rookX2) && (kingY != rookY2) -> 0
+        (kingX == rookX1) && (kingY != rookY1) && (kingX != rookX2) && (kingY != rookY2) -> 1
+        (kingX != rookX1) && (kingY == rookY1) && (kingX != rookX2) && (kingY != rookY2) -> 1
+        (kingX == rookX2) && (kingY != rookY2) && (kingX != rookX1) && (kingY != rookY1) -> 2
+        else -> if ((kingX != rookX2) && (kingY == rookY2) && (kingX != rookX1) && (kingY != rookY1)) 2
+        else 3
+    }
 }
 
 /**
@@ -125,11 +126,13 @@ fun whichRookThreatens(kingX: Int, kingY: Int,
 fun rookOrBishopThreatens(kingX: Int, kingY: Int,
                           rookX: Int, rookY: Int,
                           bishopX: Int, bishopY: Int): Int {
-    if ((kingX != rookX) && (kingY != rookY) && (abs(kingX - bishopX) != abs(kingY - bishopY))) return 0
-    if ((kingX == rookX) && (kingY != rookY) && (abs(kingX - bishopX) != abs(kingY - bishopY))) return 1
-    if ((kingX != rookX) && (kingY == rookY) && (abs(kingX - bishopX) != abs(kingY - bishopY))) return 1
-    if ((kingX != rookX) && (kingY != rookY) && (abs(kingX - bishopX) == abs(kingY - bishopY))) return 2
-    else return 3
+    return when {
+        (kingX != rookX) && (kingY != rookY) && (abs(kingX - bishopX) != abs(kingY - bishopY)) -> 0
+        (kingX == rookX) && (kingY != rookY) && (abs(kingX - bishopX) != abs(kingY - bishopY)) -> 1
+        (kingX != rookX) && (kingY == rookY) && (abs(kingX - bishopX) != abs(kingY - bishopY)) -> 1
+        else -> if ((kingX != rookX) && (kingY != rookY) && (abs(kingX - bishopX) == abs(kingY - bishopY))) 2
+        else 3
+    }
 }
 
 /**
@@ -143,11 +146,9 @@ fun rookOrBishopThreatens(kingX: Int, kingY: Int,
 fun triangleKind(a: Double, b: Double, c: Double): Int {
     if ((a + b < c) || (b + c < a) || (a + c < b)) return -1
     if ((sqr(a) + sqr(b) == sqr(c)) || (sqr(b) + sqr(c) == sqr(a)) || (sqr(a) + sqr(c) == sqr(b))) return 1
-    if (((sqr(b) + sqr(c) - sqr(a))/2.0 * b * c < 0) || ((sqr(a) + sqr(c) - sqr(b))/2.0 * a * c < 0) || ((sqr(a) + sqr(b) - sqr(c))/2.0 * a * b < 0)) return 2
-else return 0
-
+    return if (((sqr(b) + sqr(c) - sqr(a)) / 2.0 * b * c < 0) || ((sqr(a) + sqr(c) - sqr(b)) / 2.0 * a * c < 0) || ((sqr(a) + sqr(b) - sqr(c)) / 2.0 * a * b < 0)) 2
+    else 0
 }
-
 
 
 /**

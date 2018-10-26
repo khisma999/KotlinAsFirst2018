@@ -85,10 +85,8 @@ fun digitNumber(n: Int): Int {
  * Найти число Фибоначчи из ряда 1, 1, 2, 3, 5, 8, 13, 21, ... с номером n.
  * Ряд Фибоначчи определён следующим образом: fib(1) = 1, fib(2) = 1, fib(n+2) = fib(n) + fib(n+1)
  */
-fun fib(n: Int): Int {
-    if (n == 1 || n == 2) return 1
-    else return fib(n - 1) + fib(n - 2)
-}
+fun fib(n: Int): Int = if (n == 1 || n == 2) 1
+else fib(n - 1) + fib(n - 2)
 
 /**
  * Простая
@@ -98,15 +96,15 @@ fun fib(n: Int): Int {
  */
 
 fun lcm(m: Int, n: Int): Int {
-    val a = min(m, n)
-    val b = max(m, n)
-    val c = b
-    while (c % a != 0)
-        c + -b
-    return c
-
+    var a = m * n
+    for (i in 1..m * n) {
+        if (i % m == 0 && i % n == 0) {
+            a = i
+            break
+        }
+    }
+    return a
 }
-
 /**
  * Простая
  *
@@ -134,14 +132,11 @@ fun maxDivisor(n: Int): Int = n / minDivisor(n)
  * Например, 25 и 49 взаимно простые, а 6 и 8 -- нет.
  */
 fun isCoPrime(m: Int, n: Int): Boolean {
-    val minimal = min(m, n)
-    val maximum = max(m, n)
-    for (i in 2..sqrt(minimal.toDouble()).toInt())
-        if (m % i == 0 && n % i == 0)
-            return false
-    return maximum % minimal != 0
+    for (i in 2..m + n) {
+        if (m % i == 0 && n % i == 0) return false
+    }
+    return true
 }
-
 /**
  * Простая
  *
