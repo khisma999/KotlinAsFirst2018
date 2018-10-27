@@ -144,12 +144,15 @@ fun rookOrBishopThreatens(kingX: Int, kingY: Int,
  * Если такой треугольник не существует, вернуть -1.
  */
 fun triangleKind(a: Double, b: Double, c: Double): Int {
+    var max = maxOf(a, b, c)
+    var min = minOf(a, b, c)
+    var mid = a + b + c - max - min
+    val cos = (sqr(min) + sqr(mid) - sqr(max)) / 2 * min * mid
     if ((a + b < c) || (b + c < a) || (a + c < b)) return -1
-    if ((sqr(a) + sqr(b) == sqr(c)) || (sqr(b) + sqr(c) == sqr(a)) || (sqr(a) + sqr(c) == sqr(b))) return 1
-    return if (((sqr(b) + sqr(c) - sqr(a)) / 2.0 * b * c < 0) || ((sqr(a) + sqr(c) - sqr(b)) / 2.0 * a * c < 0) || ((sqr(a) + sqr(b) - sqr(c)) / 2.0 * a * b < 0)) 2
-    else 0
+    if (cos > 0.0) return 0
+    return if (cos == 0.0) 1
+    else 2
 }
-
 
 /**
  * Средняя
@@ -160,15 +163,8 @@ fun triangleKind(a: Double, b: Double, c: Double): Int {
  * Если пересечения нет, вернуть -1.
  */
 fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int {
-    val K = c - b
-    if ((K > 0) && (c > b)) return -1
-    if ((K < 0) && (a > d)) return -1
-    if ((K < 0) && (a < d) && (a <= c) && (b <= d)) return b - c
-    if ((K < 0) && (b <= d) && (a >= c)) return b - a
-    if ((K < 0) && (a < d) && (a >= c) && (d <= b)) return d - a
-    if ((K < 0) && (a <= c) && (d <= b)) return d - c
-    if ((K < 0) && (a == d)) return 0
-    if (K == 0) return 0
-    else return K
+    val k1 = maxOf(a, c)
+    val k2 = minOf(b, d)
+    return max(k2 - k1, -1)
 }
 
