@@ -267,7 +267,7 @@ fun isPalindrome(n: Int): Boolean = n == revert(n)
  * Использовать операции со строками в этой задаче запрещается.
  */
 fun hasDifferentDigits(n: Int): Boolean {
-    var a = n % 10
+    val a = n % 10
     var b = n / 10
     while (b > 0) {
         if (b % 10 != a)

@@ -132,7 +132,6 @@ fun abs(v: List<Double>): Double {
 fun mean(list: List<Double>): Double {
     if (list.isEmpty()) return 0.0
     return list.sum() / list.size
-
 }
 
 /**
@@ -158,7 +157,7 @@ fun center(list: MutableList<Double>): MutableList<Double> {
  * C = a1b1 + a2b2 + ... + aNbN. Произведение пустых векторов считать равным 0.0.
  */
 fun times(a: List<Double>, b: List<Double>): Double {
-    var element: Double = 0.0
+    var element = 0.0
     for (i in 0 until a.size) {
         element += a[i] * b[i]
     }
@@ -174,11 +173,11 @@ fun times(a: List<Double>, b: List<Double>): Double {
  * Значение пустого многочлена равно 0.0 при любом x.
  */
 fun polynom(p: List<Double>, x: Double): Double {
-    val Sum = mutableListOf<Double>()
+    val sum = mutableListOf<Double>()
     for (i in 0 until p.size) {
-        Sum.add(pow(x, i.toDouble()))
+        sum.add(pow(x, i.toDouble()))
     }
-    return times(Sum, p)
+    return times(sum, p)
 }
 
 

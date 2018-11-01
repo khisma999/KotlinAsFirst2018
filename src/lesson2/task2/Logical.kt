@@ -1,4 +1,5 @@
 @file:Suppress("UNUSED_PARAMETER")
+
 package lesson2.task2
 
 import lesson1.task1.sqr
@@ -45,15 +46,14 @@ fun queenThreatens(x1: Int, y1: Int, x2: Int, y2: Int) =
  * Дан номер месяца (от 1 до 12 включительно) и год (положительный).
  * Вернуть число дней в этом месяце этого года по григорианскому календарю.
  */
-fun daysInMonth(month: Int, year: Int): Int {
-    return when {
-        (month == 2) && ((year % 400 == 0) || ((year % 100 != 0) && (year % 4 == 0))) -> 29
-        (month == 2) && (year % 100 == 0) && (year % 400 != 0) -> 28
-        (month == 2) && (year % 100 != 0) && (year % 4 != 0) -> 28
-        else -> if ((month == 4) || (month == 6) || (month == 9) || (month == 11)) 30
-        else 31
-    }
-}
+fun daysInMonth(month: Int, year: Int): Int =
+        when {
+            (month == 2) && ((year % 400 == 0) || ((year % 100 != 0) && (year % 4 == 0))) -> 29
+            (month == 2) && (year % 100 == 0) && (year % 400 != 0) -> 28
+            (month == 2) && (year % 100 != 0) && (year % 4 != 0) -> 28
+            else -> if ((month == 4) || (month == 6) || (month == 9) || (month == 11)) 30
+            else 31
+        }
 
 /**
  * Средняя
@@ -64,7 +64,7 @@ fun daysInMonth(month: Int, year: Int): Int {
  */
 fun circleInside(x1: Double, y1: Double, r1: Double,
                  x2: Double, y2: Double, r2: Double): Boolean {
-    var s = sqrt(sqr(x2 - x1) + sqr(y2 - y1))
+    val s = sqrt(sqr(x2 - x1) + sqr(y2 - y1))
     return r2 >= s + r1
 }
 

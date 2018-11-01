@@ -65,13 +65,12 @@ fun minBiRoot(a: Double, b: Double, c: Double): Double {
  * Мой возраст. Для заданного 0 < n < 200, рассматриваемого как возраст человека,
  * вернуть строку вида: «21 год», «32 года», «12 лет».
  */
-fun ageDescription(age: Int): String {
-    return when {
-        ((age % 10 == 1) && (age % 100 != 11)) -> "$age год"
-        ((age % 10 in 2..4) && (age % 100 !in 11..14)) -> "$age года"
-        else -> "$age лет"
-    }
-}
+fun ageDescription(age: Int): String =
+        when {
+            ((age % 10 == 1) && (age % 100 != 11)) -> "$age год"
+            ((age % 10 in 2..4) && (age % 100 !in 11..14)) -> "$age года"
+            else -> "$age лет"
+        }
 
 
 /**
@@ -102,16 +101,15 @@ fun timeForHalfWay(t1: Double, v1: Double,
  * и 3, если угроза от обеих ладей.
  * Считать, что ладьи не могут загораживать друг друга
  */
-fun whichRookThreatens(kingX: Int, kingY: Int, rookX1: Int, rookY1: Int, rookX2: Int, rookY2: Int): Int {
-    return when {
-        (kingX != rookX1) && (kingY != rookY1) && (kingX != rookX2) && (kingY != rookY2) -> 0
-        (kingX == rookX1) && (kingY != rookY1) && (kingX != rookX2) && (kingY != rookY2) -> 1
-        (kingX != rookX1) && (kingY == rookY1) && (kingX != rookX2) && (kingY != rookY2) -> 1
-        (kingX == rookX2) && (kingY != rookY2) && (kingX != rookX1) && (kingY != rookY1) -> 2
-        else -> if ((kingX != rookX2) && (kingY == rookY2) && (kingX != rookX1) && (kingY != rookY1)) 2
-        else 3
-    }
-}
+fun whichRookThreatens(kingX: Int, kingY: Int, rookX1: Int, rookY1: Int, rookX2: Int, rookY2: Int): Int =
+        when {
+            (kingX != rookX1) && (kingY != rookY1) && (kingX != rookX2) && (kingY != rookY2) -> 0
+            (kingX == rookX1) && (kingY != rookY1) && (kingX != rookX2) && (kingY != rookY2) -> 1
+            (kingX != rookX1) && (kingY == rookY1) && (kingX != rookX2) && (kingY != rookY2) -> 1
+            (kingX == rookX2) && (kingY != rookY2) && (kingX != rookX1) && (kingY != rookY1) -> 2
+            else -> if ((kingX != rookX2) && (kingY == rookY2) && (kingX != rookX1) && (kingY != rookY1)) 2
+            else 3
+        }
 
 /**
  * Простая
@@ -125,15 +123,14 @@ fun whichRookThreatens(kingX: Int, kingY: Int, rookX1: Int, rookY1: Int, rookX2:
  */
 fun rookOrBishopThreatens(kingX: Int, kingY: Int,
                           rookX: Int, rookY: Int,
-                          bishopX: Int, bishopY: Int): Int {
-    return when {
-        (kingX != rookX) && (kingY != rookY) && (abs(kingX - bishopX) != abs(kingY - bishopY)) -> 0
-        (kingX == rookX) && (kingY != rookY) && (abs(kingX - bishopX) != abs(kingY - bishopY)) -> 1
-        (kingX != rookX) && (kingY == rookY) && (abs(kingX - bishopX) != abs(kingY - bishopY)) -> 1
-        else -> if ((kingX != rookX) && (kingY != rookY) && (abs(kingX - bishopX) == abs(kingY - bishopY))) 2
-        else 3
-    }
-}
+                          bishopX: Int, bishopY: Int): Int =
+        when {
+            (kingX != rookX) && (kingY != rookY) && (abs(kingX - bishopX) != abs(kingY - bishopY)) -> 0
+            (kingX == rookX) && (kingY != rookY) && (abs(kingX - bishopX) != abs(kingY - bishopY)) -> 1
+            (kingX != rookX) && (kingY == rookY) && (abs(kingX - bishopX) != abs(kingY - bishopY)) -> 1
+            else -> if ((kingX != rookX) && (kingY != rookY) && (abs(kingX - bishopX) == abs(kingY - bishopY))) 2
+            else 3
+        }
 
 /**
  * Простая
@@ -144,14 +141,15 @@ fun rookOrBishopThreatens(kingX: Int, kingY: Int,
  * Если такой треугольник не существует, вернуть -1.
  */
 fun triangleKind(a: Double, b: Double, c: Double): Int {
-    var max = maxOf(a, b, c)
-    var min = minOf(a, b, c)
-    var mid = a + b + c - max - min
-    val cos = (sqr(min) + sqr(mid) - sqr(max)) / 2 * min * mid
-    if ((a + b < c) || (b + c < a) || (a + c < b)) return -1
-    if (cos > 0.0) return 0
-    return if (cos == 0.0) 1
-    else 2
+    val max = maxOf(a, b, c)
+    val min = minOf(a, b, c)
+    val mid = a + b + c - max - min
+    if ((a + b > c) && (b + c > a) && (a + c > b)) {
+        if (sqr(max) == sqr(min) + sqr(mid)) return 1
+        return if ((sqr(min) + sqr(mid) - sqr(max)) / (2 * min * mid) > 0.0) 0
+        else 2
+    } else
+        return -1
 }
 
 /**
