@@ -116,13 +116,7 @@ fun buildSumExample(list: List<Int>) = list.joinToString(separator = " + ", post
  * по формуле abs = sqrt(a1^2 + a2^2 + ... + aN^2).
  * Модуль пустого вектора считать равным 0.0.
  */
-fun abs(v: List<Double>): Double {
-    return if (v.isEmpty()) 0.0
-    else {
-        val m = v.map { it * it }
-        sqrt(m.sum())
-    }
-}
+fun abs(v: List<Double>): Double = if (v.isEmpty()) 0.0 else sqrt(v.map { it * it }.sum())
 
 /**
  * Простая
@@ -144,8 +138,7 @@ fun mean(list: List<Double>): Double {
  */
 fun center(list: MutableList<Double>): MutableList<Double> {
     val medium = mean(list)
-    for (i in list.indices)
-        list[i] -= medium
+    list.replaceAll { it - medium }
     return list
 }
 
@@ -220,6 +213,7 @@ fun factorize(n: Int): List<Int> {
     }
     return listone
 }
+
 /**
  * Сложная
  *
@@ -228,6 +222,7 @@ fun factorize(n: Int): List<Int> {
  * Множители в результирующей строке должны располагаться по возрастанию.
  */
 fun factorizeToString(n: Int): String = factorize(n).joinToString(separator = "*")
+
 /**
  * Средняя
  *
