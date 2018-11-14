@@ -106,7 +106,21 @@ fun mergePhoneBooks(mapA: Map<String, String>, mapB: Map<String, String>): Map<S
  *   buildGrades(mapOf("Марат" to 3, "Семён" to 5, "Михаил" to 5))
  *     -> mapOf(5 to listOf("Семён", "Михаил"), 3 to listOf("Марат"))
  */
-fun buildGrades(grades: Map<String, Int>): Map<Int, List<String>> = TODO()
+fun buildGrades(grades: Map<String, Int>): Map<Int, List<String>> {
+    val new = mutableMapOf<Int, MutableList<String>>()
+    for ((name, grade) in grades) {
+        if (new[grade] != null)
+            new[grade]!!.add(name)
+        else
+            new[grade] = mutableListOf(name)
+    }
+    return new
+}
+
+private fun <E> MutableList<E>.sortDescending(compareBy: Any) {
+
+}
+
 
 /**
  * Простая
@@ -196,7 +210,12 @@ fun subtractOf(a: MutableMap<String, String>, b: Map<String, String>): Unit = TO
  *
  * Для двух списков людей найти людей, встречающихся в обоих списках
  */
-fun whoAreInBoth(a: List<String>, b: List<String>): List<String> = TODO()
+fun whoAreInBoth(a: List<String>, b: List<String>): List<String> {
+    val result = mutableListOf<String>()
+    result.addAll(a)
+    result.retainAll(b)
+    return result
+}
 
 /**
  * Средняя
