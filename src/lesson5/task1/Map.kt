@@ -272,6 +272,7 @@ fun hasAnagrams(words: List<String>): Boolean = TODO()
  */
 fun findSumOfTwo(list: List<Int>, number: Int): Pair<Int, Int> = TODO()
 
+
 /**
  * Очень сложная
  *
