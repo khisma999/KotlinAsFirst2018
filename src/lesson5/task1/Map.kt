@@ -132,7 +132,7 @@ private fun <E> MutableList<E>.sortDescending(compareBy: Any) {
  *   containsIn(mapOf("a" to "z"), mapOf("a" to "z", "b" to "sweet")) -> true
  *   containsIn(mapOf("a" to "z"), mapOf("a" to "zee", "b" to "sweet")) -> false
  */
-fun containsIn(a: Map<String, String>, b: Map<String, String>): Boolean = TODO()
+fun containsIn(a: Map<String, String>, b: Map<String, String>): Boolean = a.all { it.value == b[it.key] }
 
 /**
  * Средняя
@@ -203,19 +203,18 @@ fun propagateHandshakes(friends: Map<String, Set<String>>): Map<String, Set<Stri
  *   subtractOf(a = mutableMapOf("a" to "z"), mapOf("a" to "z"))
  *     -> a changes to mutableMapOf() aka becomes empty
  */
-fun subtractOf(a: MutableMap<String, String>, b: Map<String, String>): Unit = TODO()
+fun subtractOf(a: MutableMap<String, String>, b: Map<String, String>): Unit {
+    for ((key, value) in b)
+        if (a[key] == value)
+        a.remove(key)
+}
 
 /**
  * Простая
  *
  * Для двух списков людей найти людей, встречающихся в обоих списках
  */
-fun whoAreInBoth(a: List<String>, b: List<String>): List<String> {
-    val result = mutableListOf<String>()
-    result.addAll(a)
-    result.retainAll(b)
-    return result
-}
+fun whoAreInBoth(a: List<String>, b: List<String>): List<String> = a.filter{b.contains(it)}
 
 /**
  * Средняя
@@ -251,7 +250,14 @@ fun extractRepeats(list: List<String>): Map<String, Int> = TODO()
  * Например:
  *   hasAnagrams(listOf("тор", "свет", "рот")) -> true
  */
-fun hasAnagrams(words: List<String>): Boolean = TODO()
+fun hasAnagrams(words: List<String>): Boolean {
+    for (i in 0 until words.size - 1) {
+        for (j in i + 1 until words.size) {
+            if (words[i].toList().sorted() == words[j].toList().sorted()) return true
+        }
+    }
+    return false
+}
 
 /**
  * Сложная
@@ -270,7 +276,16 @@ fun hasAnagrams(words: List<String>): Boolean = TODO()
  *   findSumOfTwo(listOf(1, 2, 3), 4) -> Pair(0, 2)
  *   findSumOfTwo(listOf(1, 2, 3), 6) -> Pair(-1, -1)
  */
-fun findSumOfTwo(list: List<Int>, number: Int): Pair<Int, Int> = TODO()
+fun findSumOfTwo(list: List<Int>, number: Int): Pair<Int, Int> {
+    for (i in 0 until list.size) {
+        for (j in i + 1 until list.size) {
+            if (list[i] + list[j] == number && j < i)
+                return Pair(j, i)
+            if (list[i] + list[j] == number && i < j) return Pair(i, j)
+        }
+    }
+    return Pair(-1, -1)
+}
 
 
 /**
