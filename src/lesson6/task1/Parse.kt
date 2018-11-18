@@ -82,7 +82,7 @@ fun dateStrToDigit(str: String): String {
     val monthsToInt = listOf(day, months.indexOf(parts[1]) + 1, year)
     if (day !in 1..31 || monthsToInt[1] !in 1..12) return ""
     if (monthsToInt[0] > daysInMonth(monthsToInt[1], monthsToInt[2])) return ""
-    val first = if (day in 0..9) "0${day}" else "$day"
+    val first = if (day in 0..9) "0$day" else "$day"
     val next = if (months.indexOf(parts[1]) in 0..8) "0${months.indexOf(parts[1]) + 1}" else (months.indexOf(parts[1]) + 1).toString()
     return "$first.$next.$year"
 }
