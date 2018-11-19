@@ -51,12 +51,10 @@ fun main(args: Array<String>) {
         val seconds = timeStrToSeconds(line)
         if (seconds == -1) {
             println("Введённая строка $line не соответствует формату ЧЧ:ММ:СС")
-        }
-        else {
+        } else {
             println("Прошло секунд с начала суток: $seconds")
         }
-    }
-    else {
+    } else {
         println("Достигнут <конец файла> в процессе чтения строки. Программа прервана")
     }
 }
@@ -79,9 +77,9 @@ fun dateStrToDigit(str: String): String {
     val day = parts[0].toInt()
     val year = parts[2].toInt()
     val months = listOf("января", "февраля", "марта", "апреля", "мая", "июня", "июля", "августа", "сентября", "октября", "ноября", "декабря")
-    val monthsToInt = listOf(day, months.indexOf(parts[1]) + 1, year)
-    if (day !in 1..31 || monthsToInt[1] !in 1..12) return ""
-    if (monthsToInt[0] > daysInMonth(monthsToInt[1], monthsToInt[2])) return ""
+    val dateToInt = listOf(day, months.indexOf(parts[1]) + 1, year)
+    if (day !in 1..31 || dateToInt[1] !in 1..12) return ""
+    if (dateToInt[0] > daysInMonth(dateToInt[1], dateToInt[2])) return ""
     val first = if (day in 0..9) "0$day" else "$day"
     val next = if (months.indexOf(parts[1]) in 0..8) "0${months.indexOf(parts[1]) + 1}" else (months.indexOf(parts[1]) + 1).toString()
     return "$first.$next.$year"
@@ -97,7 +95,18 @@ fun dateStrToDigit(str: String): String {
  * Обратите внимание: некорректная с точки зрения календаря дата (например, 30 февраля 2009) считается неверными
  * входными данными.
  */
-fun dateDigitToStr(digital: String): String = TODO()
+fun dateDigitToStr(digital: String): String {
+    val parts = digital.split(".")
+    val months = listOf("января", "февраля", "мартя", "апреля", "мая", "июня", "июля", "августа", "сентября", "октября", "ноября", "декабря")
+    return try {
+        val month = months[parts[1].toInt() - 1]
+        if (parts[1].toInt() !in 1..12 || parts.size != 3) return ""
+        if (parts[0].toInt() > daysInMonth(parts[1].toInt(), parts[2].toInt())) return ""
+        return String.format("%d %s %d", parts[0].toInt(), month, parts[2].toInt())
+    } catch (e: Exception) {
+        ""
+    }
+}
 
 /**
  * Средняя
