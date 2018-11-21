@@ -77,12 +77,12 @@ fun dateStrToDigit(str: String): String {
     val day = parts[0].toInt()
     val year = parts[2].toInt()
     val months = listOf("января", "февраля", "марта", "апреля", "мая", "июня", "июля", "августа", "сентября", "октября", "ноября", "декабря")
+    if (parts[1] !in months) return ""
     val dateToInt = listOf(day, months.indexOf(parts[1]) + 1, year)
+    val month = months.indexOf(parts[1]) + 1
     if (dateToInt[1] !in 1..12) return ""
     if (dateToInt[0] > daysInMonth(dateToInt[1], dateToInt[2])) return ""
-    val first = if (day in 0..9) "0$day" else "$day"
-    val next = if (months.indexOf(parts[1]) in 0..8) "0${months.indexOf(parts[1]) + 1}" else (months.indexOf(parts[1]) + 1).toString()
-    return "$first.$next.$year"
+    return String.format("%02d.%02d.%02d", day, month, year)
 }
 
 /**
