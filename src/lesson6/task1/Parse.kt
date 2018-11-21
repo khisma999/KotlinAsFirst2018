@@ -73,15 +73,15 @@ fun main(args: Array<String>) {
  */
 fun dateStrToDigit(str: String): String {
     val parts = str.split(" ")
-    if (parts.size != 3 || parts[0].toInt() !in 1..31) return ""
+    if (parts.size != 3) return ""
     val day = parts[0].toInt()
     val year = parts[2].toInt()
     val months = listOf("января", "февраля", "марта", "апреля", "мая", "июня", "июля", "августа", "сентября", "октября", "ноября", "декабря")
     if (parts[1] !in months) return ""
-    val dateToInt = listOf(day, months.indexOf(parts[1]) + 1, year)
+    if (daysInMonth(months.indexOf(parts[1]) + 1, year) < day) return ""
     val month = months.indexOf(parts[1]) + 1
-    if (dateToInt[1] !in 1..12) return ""
-    if (dateToInt[0] > daysInMonth(dateToInt[1], dateToInt[2])) return ""
+    if (month !in 1..12) return ""
+    if (day > daysInMonth(month, year)) return ""
     return String.format("%02d.%02d.%1d", day, month, year)
 }
 
@@ -97,16 +97,15 @@ fun dateStrToDigit(str: String): String {
  */
 fun dateDigitToStr(digital: String): String {
     val parts = digital.split(".")
-    if (parts.size != 3) return ""
     val months = listOf("января", "февраля", "марта", "апреля", "мая", "июня", "июля", "августа", "сентября", "октября", "ноября", "декабря")
     return try {
+        val day = parts[0].toInt()
+        val year = parts[2].toInt()
+        if (parts.size != 3 || parts[1].toInt() !in 1..12) throw Exception()
+        if (day > daysInMonth(parts[1].toInt(), year)) throw Exception()
         val month = months[parts[1].toInt() - 1]
-        if (parts[1].toInt() !in 1..12 || parts.size != 3 || parts[0].toInt() !in 1..31) return ""
-        if (parts[0].toInt() > daysInMonth(parts[1].toInt(), parts[2].toInt())) return ""
-        return String.format("%d %s %d", parts[0].toInt(), month, parts[2].toInt())
-    } catch (e: Exception) {
-        return ""
-    }
+        String.format("%d %s %d", day, month, year)
+    } catch (e: Exception) { "" }
 }
 
 /**
