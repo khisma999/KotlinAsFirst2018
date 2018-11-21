@@ -69,8 +69,8 @@ fun digitCountInNumber(n: Int, m: Int): Int =
  */
 fun digitNumber(n: Int): Int {
     var k = 1
-    var m: Int = n
-    while (abs(m) > 9) {
+    var m = abs(n)
+    while (m > 9) {
         k++
         m /= 10
     }
