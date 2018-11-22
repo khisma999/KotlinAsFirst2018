@@ -41,6 +41,7 @@ class Tests {
         assertEquals("03.04.2011", dateStrToDigit("3 апреля 2011"))
         assertEquals("", dateStrToDigit("32 сентября 2011"))
         assertEquals("", dateStrToDigit("29 февраля 1993"))
+        assertEquals("", dateStrToDigit("DAlG2Ka&e\"d)kA'%eFc3evj)6Q\nML22!'F2 n8]@PZ7&f4Jdl8~'QsvZ<J3Hb*}GL1fMCcS+Tzf^A-}{F\nt?[#)O6mf=,zwiy|mbOSvodZ0_$'zt$#`[~&2CJ|/5'nw~Jnu5<,I uTw&{VWgMgV11@[dC?_lx(vKM.QxyQ;?t4`#|.HMAE_z/JNx?3Tguy5Q,Yx!R1c6=%^M)\"tWICA?p&,Ya\"~iLG&Hop/.6_AFe="))
     }
 
     @Test
@@ -54,6 +55,7 @@ class Tests {
         assertEquals("", dateStrToDigit("32.09.2011"))
         assertEquals("", dateStrToDigit("29.02.1993"))
         assertEquals("", dateDigitToStr("li$[J cC "))
+        assertEquals("", dateDigitToStr("spF2Lx3AVSbPbD19i EEV]=-pz)BgOg N>)h&u\nzq!KH~PRfg#>rRRj>jFLDE?XxF\\psT4A~@2}IIG5*hL>T$!Y}C8)qr&LBWU+"))
     }
 
     @Test
