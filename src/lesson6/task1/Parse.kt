@@ -127,6 +127,7 @@ fun flattenPhoneNumber(phone: String): String {
     number = number.filter {
         it !in setOf(' ', '-', '(', ')')
     }
+    if (number == "+") return ""
     var changedNumber = 0
     return try {
         number.forEach {
@@ -154,7 +155,7 @@ fun bestLongJump(jumps: String): Int {
     val bestJump = mutableListOf<Int>()
     val parts = jumps.split(" ")
     for (element in parts) {
-        if (element != "%" && element != "-") {
+        if (element != "%" && element != "-" && element != "") {
             for (it in element)
                 if (!it.isDigit())
                     return -1
