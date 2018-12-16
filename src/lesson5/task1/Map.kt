@@ -117,11 +117,6 @@ fun buildGrades(grades: Map<String, Int>): Map<Int, List<String>> {
     return new
 }
 
-private fun <E> MutableList<E>.sortDescending(compareBy: Any) {
-
-}
-
-
 /**
  * Простая
  *
@@ -206,7 +201,7 @@ fun propagateHandshakes(friends: Map<String, Set<String>>): Map<String, Set<Stri
 fun subtractOf(a: MutableMap<String, String>, b: Map<String, String>): Unit {
     for ((key, value) in b)
         if (a[key] == value)
-        a.remove(key)
+            a.remove(key)
 }
 
 /**
@@ -214,7 +209,7 @@ fun subtractOf(a: MutableMap<String, String>, b: Map<String, String>): Unit {
  *
  * Для двух списков людей найти людей, встречающихся в обоих списках
  */
-fun whoAreInBoth(a: List<String>, b: List<String>): List<String> = a.filter{it in b}
+fun whoAreInBoth(a: List<String>, b: List<String>): List<String> = a.filter { it in b }
 
 /**
  * Средняя
