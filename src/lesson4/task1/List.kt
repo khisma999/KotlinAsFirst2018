@@ -3,6 +3,8 @@
 package lesson4.task1
 
 import lesson1.task1.discriminant
+import java.io.File
+import java.io.IOException
 import java.lang.Math.pow
 import kotlin.math.sqrt
 
@@ -185,12 +187,98 @@ fun polynom(p: List<Double>, x: Double): Double {
  * Обратите внимание, что данная функция должна изменять содержание списка list, а не его копии.
  */
 fun accumulate(list: MutableList<Double>): MutableList<Double> {
-   var res = 0.0
+    var res = 0.0
     for (i in 0 until list.size) {
         res += list[i]
         list[i] = res
     }
     return list
+}
+
+fun Lenizaza(inputName: String, query: String): String {
+    var result = StringBuilder()
+    val inputStream = File(inputName).readLines()
+    inputStream.forEach { lines ->
+        val spl = lines.split(":")
+        val splQuery = query.split(" ")
+        if (splQuery[0].length != 6)
+            throw IllegalArgumentException()
+        if (splQuery[0] == spl[0]) {
+            val resurs = spl[1].split(",")
+            val name = resurs[0].trim()
+            val equals = (resurs[1].trim().toInt()) * (resurs[2].trim().toInt())
+            if (splQuery[1].toInt() <= resurs[2].trim().toInt())
+                result.append("$name, достаточно, общая стоимость $equals р")
+            else result.append("$name,недостаточно, общая стоимость $equals р")
+        }
+        if (!Regex("""\d+\s\d+""").matches(query) ||
+                !Regex("""d+:\s+[а-яА-Я]+,\s+d+\s+[р],\s+\d+\s+\w+""").matches(lines) || result.isEmpty())
+            throw IllegalArgumentException()
+    }
+    if (inputName.isEmpty())
+        throw IOException()
+    return result.toString()
+}
+
+
+fun Lenizazaza(inputName: String, str: String): MutableList<String> {
+    val inputStream = File(inputName).readLines()
+    var list = mutableListOf<String>()
+    val splDefaultString = str.split(" ")
+    inputStream.forEach { line ->
+        if (!Regex("""[а-яА-Я]+\s(\d+-)+\d+:(\s[а-яА-Я]+\s\d+,)*\s[а-яА-Я]+\s\d+""").matches(line) ||
+                !Regex("""[а-яА-Я]+\s\d+""").matches(str))
+            throw IllegalArgumentException()
+        val newLine = line.split(":")
+        val line1 = newLine[1].split(",")
+        for (i in 0 until line1.size) {
+            val line2 = line1[i].trim().split(" ")
+            if (splDefaultString[0] == line2[0] && splDefaultString[1].toInt() <= line2[1].toInt())
+                list.add(newLine[0])
+        }
+    }
+    if (inputName.isEmpty())
+        throw IOException()
+    return list
+}
+
+fun plane(inputName: String, src: String, dst: String): Boolean {
+    val inputStream = File(inputName).readLines()
+    if (inputName.isEmpty())
+        throw IOException()
+    var first = false
+    var second = false
+    inputStream.forEach { lines ->
+        if (!Regex("""[a-zA-Z\d+]+\s[a-zA-Z]+\s>\s\d\d:\d\d""").matches(inputName) ||
+                !Regex("""[a-zA-Z\d+]+\s[a-zA-Z]+\s<\s\d\d:\d\d""").matches(inputName) ||
+                !Regex("""[a-zA-Z]+""").matches(src) ||
+                !Regex("""[a-zA-Z]+""").matches(dst))
+            throw IllegalArgumentException()
+        var word = lines.split(" ")
+        first = word[1] == src && word[2] == ">"
+        second = word[1] == dst && word[2] == "<"
+    }
+    return first && second
+}
+
+fun telephone(inputName: String, query: String): String {
+    val inputStream = File(inputName).readLines()
+    if (inputName.isEmpty())
+        throw IOException()
+    val result = StringBuilder()
+    var first = query.split(" ")
+    inputStream.forEach { lines ->
+        val newLine = lines.split("-")
+        if (newLine[0].trim() == first[0]) {
+            val splName = newLine[1].split(",")
+            for (i in 0 until splName.size) {
+                val newresult = splName[i].split(" ")
+                if (newresult[0].trim() == first[1])
+                    result.append(newresult[1])
+            }
+        }
+    }
+    return result.toString()
 }
 
 /**

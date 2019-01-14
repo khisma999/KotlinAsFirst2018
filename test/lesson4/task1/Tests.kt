@@ -222,6 +222,7 @@ class Tests {
         assertEquals("XLIX", roman(49))
     }
 
+
     @Test
     @Tag("Impossible")
     fun russian() {
@@ -232,5 +233,11 @@ class Tests {
         assertEquals("двести тысяч два", russian(200002))
         assertEquals("девятьсот тысяч", russian(900000))
         assertEquals("двенадцать", russian(12))
+    }
+
+    @Test
+    @Tag("")
+    fun telephone() {
+        telephone("input/telephone.txt", "Миша Домашний")
     }
 }
